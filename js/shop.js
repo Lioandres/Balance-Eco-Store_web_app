@@ -77,14 +77,15 @@ function buy(id) {
     // 2. Add found product to the cartList array
     
     for (i=1;i<=9;i++){
-        if (i===id) cart.push(products[id-1])       
+        if (i===id) cartList.push(products[id-1])       
     }
-    console.log(cart)
+    console.log(cartList)
 }
 
 
 // Exercise 2
 function cleanCart() {
+    cartList=[]
 
 }
 
