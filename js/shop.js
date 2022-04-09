@@ -101,10 +101,6 @@ function calculateTotal() {
 function generateCart() {
   // Using the "cartlist" array that contains all the items in the shopping cart,
   // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
-//   cart[0] = cartList[0];
-//   cart[0].quantity = 0;
-//   cart[0].subtotal = 0;
-//   cart[0].subtotalWithDiscount = 0;
 
   for (productList of cartList) {
     let i = 0;
@@ -118,20 +114,34 @@ function generateCart() {
 
       i++;
     }
-
     if (productRepeted === false) {
-      productList.quantity = 1;
-      productList.subtotal = productList.price;
-      productList.subtotalWithDiscount = 0;
       cart.push(productList);
+      cart[cart.length - 1].quantity = 1;
+      cart[cart.length - 1].subtotal = productList.price;
+      cart[cart.length - 1].subtotalWithDiscount = 0;
     }
   }
-  console.log(cart)
+  console.log(cart);
 }
 
 // Exercise 5
 function applyPromotionsCart() {
   // Apply promotions to each item in the array "cart"
+  cart.forEach((productCart) => {
+    if (productCart.offer) {
+      if (productCart.quantity >= productCart.offer.number) {
+        productCart.subtotalWithDiscount =
+          (productCart.subtotal * (1-productCart.offer.percent/100))
+      }
+      if (productCart.quantity < productCart.offer.number) {
+        productCart.subtotalWithDiscount = productCart.subtotal;
+      }
+    }
+    if (!productCart.offer) {
+      productCart.subtotalWithDiscount = productCart.subtotal;
+    }
+  });
+  console.log(cart);
 }
 
 // ** Nivell II **
