@@ -80,7 +80,7 @@ function buy(id) {
   //   if (i === id) cartList.push(products[id - 1]);
   // }
   // console.log(cartList);
-  addToCart(id)
+  addToCart(id);
 }
 
 // Exercise 2
@@ -132,7 +132,7 @@ function applyPromotionsCart() {
     if (productCart.offer) {
       if (productCart.quantity >= productCart.offer.number) {
         productCart.subtotalWithDiscount =
-          (productCart.subtotal * (1-productCart.offer.percent/100))
+          productCart.subtotal * (1 - productCart.offer.percent / 100);
       }
       if (productCart.quantity < productCart.offer.number) {
         productCart.subtotalWithDiscount = productCart.subtotal;
@@ -142,37 +142,38 @@ function applyPromotionsCart() {
       productCart.subtotalWithDiscount = productCart.subtotal;
     }
   });
-  
 }
 
 // ** Nivell II **
-
+let totalQuantity = 0;
 // Exercise 7
 function addToCart(id) {
   // Refactor previous code in order to simplify it
   // 1. Loop for to the array products to get the item to add to cart
   // 2. Add found product to the cart array or update its quantity in case it has been added previously.
-  
-    let i = 0;
-    let productRepeted = false;
-    while (i < cart.length && productRepeted === false) {
-      if (id === cart[i].id) {
-        productRepeted = true;
-        cart[i].quantity++;
-        cart[i].subtotal += cart[i].price;
-        applyPromotionsCart()
-      }
 
-      i++;
+  let i = 0;
+  let productRepeted = false;
+  while (i < cart.length && productRepeted === false) {
+    if (id === cart[i].id) {
+      productRepeted = true;
+      cart[i].quantity++;
+      cart[i].subtotal += cart[i].price;
+      applyPromotionsCart();
     }
-    if (productRepeted === false) {
-      cart.push(products[id-1]);
-      cart[cart.length - 1].quantity = 1;
-      cart[cart.length - 1].subtotal = products[id-1].price;
-      cart[cart.length - 1].subtotalWithDiscount = 0;
-      applyPromotionsCart()
-    }
-  
+
+    i++;
+  }
+  if (productRepeted === false) {
+    cart.push(products[id - 1]);
+    cart[cart.length - 1].quantity = 1;
+    cart[cart.length - 1].subtotal = products[id - 1].price;
+    cart[cart.length - 1].subtotalWithDiscount = 0;
+    applyPromotionsCart();
+  }
+
+  totalQuantity++;
+  document.getElementById("count_product").textContent = totalQuantity;
   console.log(cart);
 }
 
@@ -186,27 +187,47 @@ function removeFromCart(identificador) {
     if (identificador === cart[i].id) productFound = cart[i];
     if (identificador != cart[i].id) i++;
   }
-  if(productFound){
-    if (productFound.quantity===1)  cart.splice(i,1) 
-    if (productFound.quantity>1){
-        productFound.quantity-=1
-        productFound.subtotal-=productFound.price
-        applyPromotionsCart()
-    }    
+  if (productFound) {
+    if (productFound.quantity === 1) cart.splice(i, 1);
+    if (productFound.quantity > 1) {
+      productFound.quantity -= 1;
+      productFound.subtotal -= productFound.price;
+      applyPromotionsCart();
+    }
+    totalQuantity--;
+    document.getElementById("count_product").textContent = totalQuantity;
   }
-  if (!productFound) alert("no se puede quitar el producto porque su cantidad es cero")
-  
-console.log(cart);
+  if (!productFound)
+    alert(
+      "no se puede quitar el producto porque no se encuentra en el carrito"
+    );
 
-
-
+  console.log(cart);
 }
 
 // Exercise 9
-function printCart() {
+function printCart(productsDetail) {
   // Fill the shopping cart modal manipulating the shopping cart dom
+  
+  let printProducts = document.querySelector(".bill");
+
+  printProducts.innerHTML = productsDetail;
 }
 
 function open_modal() {
-  console.log("Open Modal");
+  let productsDetail="Select Something"
+  if (cart.length>0) {
+    productsDetail=""
+    cart.forEach((productCart) => {
+      productsDetail += `
+    ------${productCart.name}<br>
+    Quantity: ${productCart.quantity}<br>
+    Price: ${productCart.price}<br>
+    Subtotal:${productCart.subtotal}<br>
+    Subtotal with Discount: ${productCart.subtotalWithDiscount}<br>`;
+    });
+  }
+  console.log(productsDetail);
+  printCart(productsDetail);
+  
 }
