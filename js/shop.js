@@ -142,7 +142,7 @@ function applyPromotionsCart() {
       productCart.subtotalWithDiscount = productCart.subtotal;
     }
   });
-  console.log(cart);
+  
 }
 
 // ** Nivell II **
@@ -160,6 +160,7 @@ function addToCart(id) {
         productRepeted = true;
         cart[i].quantity++;
         cart[i].subtotal += cart[i].price;
+        applyPromotionsCart()
       }
 
       i++;
@@ -169,15 +170,36 @@ function addToCart(id) {
       cart[cart.length - 1].quantity = 1;
       cart[cart.length - 1].subtotal = products[id-1].price;
       cart[cart.length - 1].subtotalWithDiscount = 0;
+      applyPromotionsCart()
     }
   
   console.log(cart);
 }
 
 // Exercise 8
-function removeFromCart(id) {
+function removeFromCart(identificador) {
   // 1. Loop for to the array products to get the item to add to cart
   // 2. Add found product to the cartList array
+  let i = 0;
+  let productFound;
+  while (i < cart.length && !productFound) {
+    if (identificador === cart[i].id) productFound = cart[i];
+    if (identificador != cart[i].id) i++;
+  }
+  if(productFound){
+    if (productFound.quantity===1)  cart.splice(i,1) 
+    if (productFound.quantity>1){
+        productFound.quantity-=1
+        productFound.subtotal-=productFound.price
+        applyPromotionsCart()
+    }    
+  }
+  if (!productFound) alert("no se puede quitar el producto porque su cantidad es cero")
+  
+console.log(cart);
+
+
+
 }
 
 // Exercise 9
