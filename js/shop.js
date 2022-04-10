@@ -76,10 +76,11 @@ function buy(id) {
   // 1. Loop for to the array products to get the item to add to cart
   // 2. Add found product to the cartList array
 
-  for (i = 1; i <= 9; i++) {
-    if (i === id) cartList.push(products[id - 1]);
-  }
-  console.log(cartList);
+  // for (i = 1; i <= 9; i++) {
+  //   if (i === id) cartList.push(products[id - 1]);
+  // }
+  // console.log(cartList);
+  addToCart(id)
 }
 
 // Exercise 2
@@ -151,6 +152,26 @@ function addToCart(id) {
   // Refactor previous code in order to simplify it
   // 1. Loop for to the array products to get the item to add to cart
   // 2. Add found product to the cart array or update its quantity in case it has been added previously.
+  
+    let i = 0;
+    let productRepeted = false;
+    while (i < cart.length && productRepeted === false) {
+      if (id === cart[i].id) {
+        productRepeted = true;
+        cart[i].quantity++;
+        cart[i].subtotal += cart[i].price;
+      }
+
+      i++;
+    }
+    if (productRepeted === false) {
+      cart.push(products[id-1]);
+      cart[cart.length - 1].quantity = 1;
+      cart[cart.length - 1].subtotal = products[id-1].price;
+      cart[cart.length - 1].subtotalWithDiscount = 0;
+    }
+  
+  console.log(cart);
 }
 
 // Exercise 8
