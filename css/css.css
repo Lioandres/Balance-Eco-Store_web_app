@@ -1,0 +1,23 @@
+.imgMain{
+    background-image: url(../images/main.jpg);
+    background-repeat: no-repeat;
+   background-position:center;
+   background-size:cover;
+  }
+
+#grocery{
+    background-color: rgb(143, 231, 231);
+}
+#beauty{
+    background-color:rgb(233, 211, 183);
+}
+#clothes{
+    background-color: rgb(113, 128, 160);
+}
+.checkImage{
+    background-image: url(../images/credit.jpg);
+    background-repeat: no-repeat;
+   background-position:center;
+   background-size:cover;
+    
+}
