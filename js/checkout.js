@@ -63,7 +63,7 @@ function validate() {
     password.classList.remove("is-invalid");
   }
 
-  if (phone.value.trim().length < 3 || checkHasLetters(phone.value)) {
+  if (phone.value.trim().length < 8 || checkHasLetters(phone.value)) {
     phone.classList.add("is-invalid");
     phone.classList.remove("is-valid");
     error++

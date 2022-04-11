@@ -4,6 +4,15 @@
    background-position:center;
    background-size:cover;
   }
+  .storeName{
+    font-size:4em;
+    color: #80a165;
+    opacity: 1;
+      
+  }
+.storeName span{
+    opacity: 0.5;
+}
 
 #grocery{
     background-color: rgb(143, 231, 231);
@@ -20,4 +29,55 @@
    background-position:center;
    background-size:cover;
     
+}
+
+.imgModal{
+    background-image: url(../images/cart.jpg);
+    background-repeat: no-repeat;
+   background-position:center;
+   background-size:cover;
+  }
+
+  .classCart {
+      position: sticky;
+      top:0;
+      z-index: 1;
+    }
+
+.categoryClass{
+    position:relative;
+    top: 30px;
+}
+
+.textDecoration{
+    font-size: 1em;
+}
+.productFormat{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 2em;
+    font-style: italic;
+    color:green;
+    text-align: left;
+  
+}
+.totalPrice{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 2em;
+    font-style: italic;
+    color:green;
+    
+
+}
+
+.detailsFormat{  
+    text-align: left;
+}
+.modal-content{
+    background-image: url(../images/bag.jpg);
+    background-image: linear-gradient(1);
+    background-repeat: no-repeat;
+   background-position:center;
+   background-size:cover;
+
+
 }

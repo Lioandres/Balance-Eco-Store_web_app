@@ -91,11 +91,21 @@ function cleanCart() {
 // Exercise 3
 function calculateTotal() {
   // Calculate total price of the cart using the "cartList" array
+
+  // let totalPrice = 0;
+  // for (product of cartList) {
+  //   totalPrice += product.price;
+  // }
+  // console.log(totalPrice);
+
   let totalPrice = 0;
-  for (product of cartList) {
-    totalPrice += product.price;
+  for (productCart of cart) {
+    totalPrice += productCart.subtotalWithDiscount;
   }
   console.log(totalPrice);
+  return totalPrice
+  
+
 }
 
 // Exercise 4
@@ -132,7 +142,7 @@ function applyPromotionsCart() {
     if (productCart.offer) {
       if (productCart.quantity >= productCart.offer.number) {
         productCart.subtotalWithDiscount =
-          productCart.subtotal * (1 - productCart.offer.percent / 100);
+          parseFloat((productCart.subtotal * (1 - productCart.offer.percent / 100)).toFixed(2));
       }
       if (productCart.quantity < productCart.offer.number) {
         productCart.subtotalWithDiscount = productCart.subtotal;
@@ -178,14 +188,14 @@ function addToCart(id) {
 }
 
 // Exercise 8
-function removeFromCart(identificador) {
+function removeFromCart(id) {
   // 1. Loop for to the array products to get the item to add to cart
   // 2. Add found product to the cartList array
   let i = 0;
   let productFound;
   while (i < cart.length && !productFound) {
-    if (identificador === cart[i].id) productFound = cart[i];
-    if (identificador != cart[i].id) i++;
+    if (id === cart[i].id) productFound = cart[i];
+    if (id != cart[i].id) i++;
   }
   if (productFound) {
     if (productFound.quantity === 1) cart.splice(i, 1);
@@ -212,6 +222,8 @@ function printCart(productsDetail) {
   let printProducts = document.querySelector(".bill");
 
   printProducts.innerHTML = productsDetail;
+  printProducts.classList.add("textDecoration");
+
 }
 
 function open_modal() {
@@ -220,13 +232,15 @@ function open_modal() {
     productsDetail=""
     cart.forEach((productCart) => {
       productsDetail += `
-    ------${productCart.name}<br>
+    <div class="productFormat">${productCart.name}</div><br>
+    <div class="detailsFormat">
     Quantity: ${productCart.quantity}<br>
     Price: ${productCart.price}<br>
     Subtotal:${productCart.subtotal}<br>
-    Subtotal with Discount: ${productCart.subtotalWithDiscount}<br>`;
+    Subtotal with Discount: ${productCart.subtotalWithDiscount}<br></div>`
     });
   }
+  productsDetail=productsDetail+`<div class="totalPrice">TOTAL:  ${calculateTotal()} $</div><br>`
   console.log(productsDetail);
   printCart(productsDetail);
   
