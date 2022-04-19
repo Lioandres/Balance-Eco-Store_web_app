@@ -103,7 +103,7 @@ function calculateTotal() {
     totalPrice += productCart.subtotalWithDiscount;
   }
   console.log(totalPrice);
-  return totalPrice
+  return parseFloat(totalPrice.toFixed(2))
   
 
 }
